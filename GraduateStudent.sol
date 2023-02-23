@@ -108,34 +108,75 @@ contract GraduateStudent {
         Degrees[NbDegrees] = degree;
     }
 
-    function addHigherEducationInstitution(string memory name) public {
+    function addHigherEducationInstitution(string memory name, string memory institutionType, string memory country,
+        string memory institutionAddress, string memory website, uint256 memory agentId)
+    public {
         HigherEducationInstitution memory institution;
         institution.name = name;
+        institution.institutionType = institutionType;
+        institution.country = country;
+        institution.institutionAddress = institutionAddress;
+        institution.website = website;
+        institution.agentId = agentId;
         addHigherEducationInstitution(institution, msg.sender);
     }
 
-    function addCompany(string memory name) public {
+    function addCompany(string memory name, string memory sector, uint256 memory creationDate, string memory sizeClassification,
+        string memory country, string memory companyAddress, string memory email, string memory phone, string memory website) public {
         Company memory company;
         company.name = name;
+        company.sector = sector;
+        company.creationDate = creationDate;
+        company.sizeClassification = sizeClassification;
+        company.country = country;
+        company.companyAddress = companyAddress;
+        company.email = email;
+        company.phone = phone;
+        company.website = website;
         addCompany(company, msg.sender);
     }
 
-    function addStudent(string memory name, string memory firstname) public {
+    function addStudent(string memory name, string memory firstname, string memory birthdate, string memory gender,
+        string memory nationality, string memory civilStatus, string memory studentAddress, string memory email,
+        string memory phone, string memory section, string memory pfeSubject, string memory companyInternshipPfe,
+        string memory internshipSupervisor, uint256 memory internshipStartDate, uint256 memory internshipEndDate,
+        string memory evaluation) public {
         uint256 id = AddressHigherEducationInstitutions[msg.sender];
         require(id != 0, "ERROR : NO INSTITUTION");
         Student memory student;
         student.name = name;
         student.firstname = firstname;
+        student.birthdate = birthdate;
+        student.gender = gender;
+        student.nationality = nationality;
+        student.civilStatus = civilStatus;
+        student.studentAddress = studentAddress;
+        student.email = email;
+        student.phone = phone;
+        student.section = section;
+        student.pfeSubject = pfeSubject;
+        student.companyInternshipPfe = companyInternshipPfe;
+        student.internshipSupervisor = internshipSupervisor;
+        student.internshipStartDate = internshipStartDate;
+        student.internshipEndDate = internshipEndDate;
+        student.evaluation = evaluation;
         addStudent(student);
     }
 
-    function addDegree(uint256 ownerId) public {
+    function addDegree(uint256 memory ownerId, string memory institutionName, string memory country, string memory degreeType,
+        string memory speciality, string memory mention, uint256 memory obtainedDate) public {
         uint256 id = AddressHigherEducationInstitutions[msg.sender];
         require(id != 0, "ERROR : NO INSTITUTION");
         require(Students[ownerId].exist == true, "ERROR : NO STUDENT");
         Degree memory degree;
         degree.ownerId = ownerId;
         degree.institutionName = HigherEducationInstitutions[id].name;
+        degree.eesId = HigherEducationInstitutions[id].id;
+        degree.country = country;
+        degree.degreeType = degreeType;
+        degree.speciality = speciality;
+        degree.mention = mention;
+        degree.obtainedDate = obtainedDate;
         addDegree(degree);
     }
 
