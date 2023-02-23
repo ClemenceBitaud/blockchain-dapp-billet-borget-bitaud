@@ -1,5 +1,5 @@
 pragma solidity >=0.4.99 <0.6.0;
-//pragma experimental ABIEncoderV2;
+pragma experimental ABIEncoderV2;
 
 import "./StandardToken.sol";
 
@@ -158,11 +158,11 @@ contract GraduateStudent {
         Students[studentId].internshipEndDate = internshipEndDate;
         Students[studentId].evaluation = evaluation;
         require(
-            Token(token).allowance(owner, address(this)) >= 15,
+            StandardToken(token).allowance(owner, address(this)) >= 15,
             "ERROR : TOKEN NOT ALLOWED"
         );
         require(
-            Token(token).transferFrom(owner, msg.sender, 15),
+            StandardToken(token).transferFrom(owner, msg.sender, 15),
             "ERROR : TRANSFER FAIL"
         );
     }
@@ -171,11 +171,11 @@ contract GraduateStudent {
 
     function checkDegree(uint256 idDegree) public returns (bool, Degree memory) {
         require(
-            Token(token).allowance(msg.sender, address(this)) >= 10,
+            StandardToken(token).allowance(msg.sender, address(this)) >= 10,
             "ERROR : TOKEN NOT ALLOWED"
         );
         require(
-            Token(token).transferFrom(msg.sender, owner, 10),
+            StandardToken(token).transferFrom(msg.sender, owner, 10),
             "ERROR : TRANSFER FAIL"
         );
         emit checkResult(Degrees[idDegree].exist, Degrees[idDegree]);
