@@ -109,7 +109,7 @@ contract GraduateStudent {
     }
 
     function addHigherEducationInstitution(string memory name, string memory institutionType, string memory country,
-        string memory institutionAddress, string memory website, uint256 memory agentId)
+        string memory institutionAddress, string memory website, uint256 agentId)
     public {
         HigherEducationInstitution memory institution;
         institution.name = name;
@@ -121,7 +121,7 @@ contract GraduateStudent {
         addHigherEducationInstitution(institution, msg.sender);
     }
 
-    function addCompany(string memory name, string memory sector, uint256 memory creationDate, string memory sizeClassification,
+    function addCompany(string memory name, string memory sector, uint256 creationDate, string memory sizeClassification,
         string memory country, string memory companyAddress, string memory email, string memory phone, string memory website) public {
         Company memory company;
         company.name = name;
@@ -136,23 +136,15 @@ contract GraduateStudent {
         addCompany(company, msg.sender);
     }
 
-    function addStudent(string memory name, string memory firstname, string memory birthdate, string memory gender,
-        string memory nationality, string memory civilStatus, string memory studentAddress, string memory email,
-        string memory phone, string memory section, string memory pfeSubject, string memory companyInternshipPfe,
-        string memory internshipSupervisor, uint256 memory internshipStartDate, uint256 memory internshipEndDate,
+    function addStudent(string memory gender, string memory civilStatus,
+        string memory studentAddress, string memory email, string memory section, string memory pfeSubject, string memory companyInternshipPfe,
+        string memory internshipSupervisor, uint256 internshipStartDate, uint256 internshipEndDate,
         string memory evaluation) public {
-        uint256 id = AddressHigherEducationInstitutions[msg.sender];
-        require(id != 0, "ERROR : NO INSTITUTION");
         Student memory student;
-        student.name = name;
-        student.firstname = firstname;
-        student.birthdate = birthdate;
         student.gender = gender;
-        student.nationality = nationality;
         student.civilStatus = civilStatus;
         student.studentAddress = studentAddress;
         student.email = email;
-        student.phone = phone;
         student.section = section;
         student.pfeSubject = pfeSubject;
         student.companyInternshipPfe = companyInternshipPfe;
@@ -163,15 +155,14 @@ contract GraduateStudent {
         addStudent(student);
     }
 
-    function addDegree(uint256 memory ownerId, string memory institutionName, string memory country, string memory degreeType,
-        string memory speciality, string memory mention, uint256 memory obtainedDate) public {
+    function addDegree(uint256 ownerId, string memory country, string memory degreeType,
+        string memory speciality, string memory mention, uint256 obtainedDate) public {
         uint256 id = AddressHigherEducationInstitutions[msg.sender];
         require(id != 0, "ERROR : NO INSTITUTION");
         require(Students[ownerId].exist == true, "ERROR : NO STUDENT");
         Degree memory degree;
         degree.ownerId = ownerId;
         degree.institutionName = HigherEducationInstitutions[id].name;
-        degree.eesId = HigherEducationInstitutions[id].id;
         degree.country = country;
         degree.degreeType = degreeType;
         degree.speciality = speciality;
