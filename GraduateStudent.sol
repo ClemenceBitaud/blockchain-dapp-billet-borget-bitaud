@@ -1,4 +1,4 @@
-pragma solidity ^0.5.3;
+pragma solidity >=0.4.99 <0.6.0;
 //pragma experimental ABIEncoderV2;
 
 import "./StandardToken.sol";
